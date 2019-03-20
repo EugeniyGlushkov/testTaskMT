@@ -1,4 +1,4 @@
-package ru.alvisid.testtaskmt.app;
+package ru.alvisid.testtaskmt;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

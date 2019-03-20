@@ -1,4 +1,4 @@
-package ru.alvisid.testtaskmt.model;
+package ru.alvisid.testtaskmt;
 
 import lombok.Data;
 

@@ -1,9 +1,8 @@
-package ru.alvisid.testtaskmt.repository;
+package ru.alvisid.testtaskmt;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import ru.alvisid.testtaskmt.model.User;
 
 import java.util.GregorianCalendar;
 
