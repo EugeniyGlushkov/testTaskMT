@@ -9,6 +9,7 @@
 <script src="https://fb.me/react-15.0.1.js"></script>
 <script src="https://fb.me/react-dom-15.0.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -46,6 +47,30 @@
         }
     });
 
+    var App = React.createClass({
+
+        loadUsersFromServer: function () {
+            var self = this;
+            $.ajax({
+                url: "http://localhost:8080/api/users"
+            }).then(function (data) {
+                self.setState({users: data._embedded.users});
+            });
+        },
+
+        getInitialState: function () {
+            return {users: []};
+        },
+
+        componentDidMount: function () {
+            this.loadUsersFromServer();
+        },
+
+        render() {
+            return ( <UserTable users={this.state.users}/> );
+        }
+    });
+
     var USERS = [
         {name: 'Paul', email: 'paul@yandex.ru', birthDate: '2001-05-12'},
         {name: 'Jhon', email: 'jhon@mail.ru', birthDate: '2001-05-12'},
@@ -54,7 +79,7 @@
     ];
 
     ReactDOM.render(
-        <UserTable users={USERS}/>, document.getElementById("root")
+        <App/>, document.getElementById("root")
     );
 </script>
 </body>

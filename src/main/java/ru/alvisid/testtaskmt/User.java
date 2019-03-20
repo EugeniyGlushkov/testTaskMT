@@ -1,6 +1,7 @@
 package ru.alvisid.testtaskmt;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
