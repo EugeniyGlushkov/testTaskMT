@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test task MT</title>
+</head>
+<body>
+<div id='root'></div>
+
+<script src="https://fb.me/react-15.0.1.js"></script>
+<script src="https://fb.me/react-dom-15.0.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<script type="text/babel">
+    var User = React.createClass({
+        render: function () {
+            return (
+                <tr>
+                    <td>{this.props.user.name}</td>
+                    <td>{this.props.user.email}</td>
+                    <td>{this.props.user.birthDate}</td>
+                </tr>);
+        }
+    });
+    var UserTable = React.createClass({
+        render: function () {
+            var rows = [];
+            this.props.users.forEach(function (user) {
+                rows.push(<User user={user}/>);
+            });
+            return (
+                <div className="container">
+                    <table className="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>email</th>
+                            <th>birthDate</th>
+                        </tr>
+                        </thead>
+                        <tbody>{rows}</tbody>
+                    </table>
+                </div>
+            );
+        }
+    });
+
+    var USERS = [
+        {name: 'Paul', email: 'paul@yandex.ru', birthDate: '2001-05-12'},
+        {name: 'Jhon', email: 'jhon@mail.ru', birthDate: '2001-05-12'},
+        {name: 'Ann', email: 'ann@list.ru', birthDate: '2003-03-01'},
+        {name: 'Mary', email: 'mary@gmail.com', birthDate: '2000-02-09'}
+    ];
+
+    ReactDOM.render(
+        <UserTable users={USERS}/>, document.getElementById("root")
+    );
+</script>
+</body>
+</html>
