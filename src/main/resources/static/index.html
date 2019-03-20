@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.css">
 <head>
     <title>Test task MT</title>
 </head>
@@ -15,15 +17,36 @@
 
 <script type="text/babel">
     var User = React.createClass({
+        getInitialState: function() {
+            return {display: true };
+        },
+        handleDelete() {
+            var self = this;
+            $.ajax({
+                url: self.props.user._links.self.href,
+                type: 'DELETE',
+                success: function(result) {
+                    self.setState({display: false});
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    toastr.error(xhr.responseJSON.message);
+                }
+            });
+        },
         render: function () {
             return (
                 <tr>
                     <td>{this.props.user.name}</td>
                     <td>{this.props.user.email}</td>
                     <td>{this.props.user.birthDate}</td>
-                </tr>);
+                    <td>
+                        <button className="btn btn-info" onClick={this.handleDelete}>Delete</button>
+                    </td>
+                </tr>
+            );
         }
     });
+
     var UserTable = React.createClass({
         render: function () {
             var rows = [];
@@ -67,7 +90,7 @@
         },
 
         render() {
-            return ( <UserTable users={this.state.users}/> );
+            return (<UserTable users={this.state.users}/>);
         }
     });
 
