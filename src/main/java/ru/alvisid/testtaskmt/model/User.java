@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -13,6 +15,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.Objects;
+
+import static org.springframework.security.config.Elements.PASSWORD_ENCODER;
 
 /**
  * A user entity.
@@ -61,6 +65,7 @@ public class User {
     @Column(name = "password", nullable = false)
     @NotBlank
     @Size(min = 3, max = 100)
+    @JsonIgnore
     private String password;
 
     /**
@@ -149,7 +154,8 @@ public class User {
      * @param password the specified user's password.
      */
     public void setPassword(String password) {
-        this.password = password;
+        //https://www.baeldung.com/spring-security-5-default-password-encoder
+        this.password = new BCryptPasswordEncoder().encode(password);
     }
 
     /**
@@ -280,7 +286,6 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
                 ", birthDate=" + birthDate +
                 '}';
     }
