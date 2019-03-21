@@ -14,7 +14,7 @@ import java.util.Optional;
 /**
  * JpaRepository interface for user.
  *
- * @author Glushkov Evgen
+ * @author Glushkov Evgen.
  * @version 1.0
  * @since 2019.03.15
  */
