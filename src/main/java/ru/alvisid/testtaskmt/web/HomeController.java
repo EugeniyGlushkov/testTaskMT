@@ -1,4 +1,4 @@
-package ru.alvisid.testtaskmt;
+package ru.alvisid.testtaskmt.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
