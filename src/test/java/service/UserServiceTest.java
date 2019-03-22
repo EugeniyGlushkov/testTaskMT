@@ -219,7 +219,7 @@ public class UserServiceTest {
      */
     @Test
     public void getAll() {
-        List<User> actualAllUsers = service.getAll();
+        List <User> actualAllUsers = service.getAll();
 
         assertMatch(actualAllUsers, USER_3, USER_2, USER_4, USER_1);
     }
@@ -294,7 +294,7 @@ public class UserServiceTest {
      * @param exceptionClass the expected exception class.
      * @param <T>            the type of the expected exception.
      */
-    public <T extends Throwable> void validateRootCause(Runnable runnable, Class<T> exceptionClass) {
+    public <T extends Throwable> void validateRootCause(Runnable runnable, Class <T> exceptionClass) {
         try {
             runnable.run();
             Assert.fail("Expected: " + exceptionClass.getName());
