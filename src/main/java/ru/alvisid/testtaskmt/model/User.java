@@ -33,6 +33,9 @@ import static org.springframework.security.config.Elements.PASSWORD_ENCODER;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Access(AccessType.FIELD)
 public class User {
+    public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
+    public static final String ROLE = "ROLE_USER";
+
     /**
      * The specific identifier for each entity in a database.
      */
@@ -155,7 +158,7 @@ public class User {
      */
     public void setPassword(String password) {
         //https://www.baeldung.com/spring-security-5-default-password-encoder
-        this.password = new BCryptPasswordEncoder().encode(password);
+        this.password = PASSWORD_ENCODER.encode(password);
     }
 
     /**

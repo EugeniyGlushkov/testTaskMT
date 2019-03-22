@@ -2,9 +2,6 @@ package ru.alvisid.testtaskmt.repository;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import ru.alvisid.testtaskmt.model.User;
 
@@ -18,6 +15,8 @@ import java.util.Optional;
  * @version 1.0
  * @since 2019.03.15
  */
+//@RepositoryRestResource(exported = false)
+//@PreAuthorize("hasRole('ROLE_ADMIN')")
 @Transactional(readOnly = true)
 public interface UserRepository extends JpaRepository <User, Integer> {
     /**
@@ -33,16 +32,24 @@ public interface UserRepository extends JpaRepository <User, Integer> {
     @Transactional
     User save(User user);
 
+
     /**
      * Deletes a user by given id.
      *
-     * @param id id of the user that must be deleted.
+     * @param user id of the user that must be deleted.
      * @return amount of the deleted entities.
      */
+    @Override
     @Transactional
-    @Modifying
+    void delete(User user);
+
+    @Override
+    @Transactional
+    void deleteById(Integer integer);
+
+    /*@Modifying
     @Query("DELETE FROM User u WHERE u.id=:id")
-    int delete(@Param("id") int id);
+    int delete(@Param("id") int id);*/
 
     /**
      * Returns a container with a user by the given id inside.
