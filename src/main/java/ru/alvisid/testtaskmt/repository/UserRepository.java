@@ -1,80 +1,55 @@
 package ru.alvisid.testtaskmt.repository;
 
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.transaction.annotation.Transactional;
 import ru.alvisid.testtaskmt.model.User;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
- * JpaRepository interface for user.
+ * The generalized functional for user's repository.
  *
- * @author Glushkov Evgen.
+ * @author Glushkov Evgen
  * @version 1.0
  * @since 2019.03.15
  */
-//@RepositoryRestResource(exported = false)
-//@PreAuthorize("hasRole('ROLE_ADMIN')")
-@Transactional(readOnly = true)
-public interface UserRepository extends JpaRepository <User, Integer> {
+public interface UserRepository {
     /**
      * Saves or updates a given user.
-     * If there are a given object in the data base then the given object will be update.
-     * If there aren't a given object in the data base then a new object
-     * with new id (data base set default value) will be saved.
      *
-     * @param user a user to save.
-     * @return the saved user.
+     * @param user the user to save or update.
+     * @return a saved or update user,
+     * null - if there aren't updated user in the data base.
      */
-    @Override
-    @Transactional
     User save(User user);
 
-
     /**
-     * Deletes a user by given id.
+     * Deletes the user by specified id.
      *
-     * @param user id of the user that must be deleted.
-     * @return amount of the deleted entities.
+     * @param id the specified id of the deleted user.
+     * @return {@code true} - the entity is deleted, {@code false} - the entity isn't found.
      */
-    @Override
-    @Transactional
-    void delete(User user);
-
-    @Override
-    @Transactional
-    void deleteById(Integer integer);
-
-    /*@Modifying
-    @Query("DELETE FROM User u WHERE u.id=:id")
-    int delete(@Param("id") int id);*/
+    boolean delete(int id);
 
     /**
-     * Returns a container with a user by the given id inside.
+     * Returns the user with the specified id.
      *
-     * @param integer id of the user to return.
-     * @return a container with an user by the given id inside.
+     * @param id the specified id of the user to get.
+     * @return the user with the specified id,
+     * null - if there aren't the user with the specified id in the DB.
      */
-    @Override
-    Optional <User> findById(Integer integer);
-
+    User get(int id);
 
     /**
-     * Returns all users sorted with a given sort.
+     * Returns the list with all users.
      *
-     * @param sort the sort for users list.
-     * @return list of all users sorted with a given sort.
+     * @return the list with all users.
      */
-    @Override
-    List <User> findAll(Sort sort);
+    List <User> getAll();
 
     /**
-     * Returns an user by the given email.
+     * Returns the user by given email.
      *
      * @param email the specified email.
-     * @return the user by the given email.
+     * @return the user by given email.
      */
     User getByEmail(String email);
 }
