@@ -1,4 +1,4 @@
-package ru.alvisid.testtaskmt.repository;
+package ru.alvisid.testtaskmt.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
