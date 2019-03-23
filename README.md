@@ -3,3 +3,6 @@
 
 security: https://dzone.com/articles/reactjs-and-spring-data-rest-security 
 https://www.jeejava.com/spring-boot-reactjs-crud-example/
+
+
+https://o7planning.org/ru/11663/spring-boot-spring-jdbc-and-spring-transaction-tutorial

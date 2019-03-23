@@ -8,11 +8,14 @@ import org.junit.rules.ExternalResource;
 import org.junit.runner.RunWith;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import ru.alvisid.testtaskmt.model.User;
 import ru.alvisid.testtaskmt.repository.util.JpaUtil;
 import ru.alvisid.testtaskmt.service.UserService;
@@ -23,23 +26,20 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.NONE;
 import static ru.alvisid.testtaskmt.util.ValidationUtil.getRootCause;
 import static testdata.UserTestData.*;
+import static testdata.UserTestData.USER_1;
 
-/**
- * A user's tests.
- *
- * @author Glushkov Evgen
- * @version 1.0
- * @since 2019.03.16
- */
+@RunWith(SpringRunner.class)
+@DataJpaTest
 @ContextConfiguration({
         "classpath:spring/spring-app.xml"
 })
-@RunWith(SpringJUnit4ClassRunner.class)
-@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-//@ActiveProfiles("postgres")
-public class UserServiceTest {
+@AutoConfigureTestDatabase(replace = NONE)
+@EntityScan("ru.alvisid.testtaskmt.model")
+//@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
+public class UserServiceTests {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -48,17 +48,14 @@ public class UserServiceTest {
         SLF4JBridgeHandler.install();
     }
 
+    @Autowired
+    private TestEntityManager entityManager;
+
     /**
      * User's service.
      */
     @Autowired
-    protected UserService service;
-
-    /**
-     * {@code CacheManager} for clearing cache.
-     */
-    @Autowired
-    private CacheManager cacheManager;
+    private UserService service;
 
     /**
      * Current {@code JpaUtil} object.
@@ -79,9 +76,9 @@ public class UserServiceTest {
         @Override
         protected void before() throws Throwable {
             jpaUtil.clear2ndLevelHibernateCache();
-            cacheManager.getCache("users").clear();
         }
     };
+
 
     /**
      * Checks a matching the actual created value from DB to the expected created value from {@code testData}:
@@ -170,9 +167,10 @@ public class UserServiceTest {
     @Test
     public void delete() {
         int deleteId = USER_4.getId();
+        System.out.println(service.getAll());
 
         service.delete(deleteId);
-
+        System.out.println(service.getAll());
         assertMatch(service.getAll(), USER_3, USER_2, USER_1);
     }
 
@@ -219,7 +217,7 @@ public class UserServiceTest {
      */
     @Test
     public void getAll() {
-        List <User> actualAllUsers = service.getAll();
+        List<User> actualAllUsers = service.getAll();
 
         assertMatch(actualAllUsers, USER_3, USER_2, USER_4, USER_1);
     }
