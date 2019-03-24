@@ -5,7 +5,7 @@ import './user.css';
 import Users from './components/users';
 import Create from './components/create';
 import Update from './components/update';
-import registerServiceWorker from './registerServiceWorker';
+import * as serviceWorker from './serviceWorker';
 ReactDOM.render(
     <Router>
         <div>
@@ -16,4 +16,4 @@ ReactDOM.render(
     </Router>,
     document.getElementById('root'));
 
-registerServiceWorker();
+serviceWorker.register();
