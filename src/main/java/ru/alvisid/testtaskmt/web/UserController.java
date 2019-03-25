@@ -30,6 +30,7 @@ public class UserController {
     }
 
     @GetMapping("/user/get/{id}")
+    @ResponseBody
     public ResponseEntity<User> getUser(@PathVariable Integer id) throws Exception {
         return new ResponseEntity<User>(service.get(id), HttpStatus.OK);
     }

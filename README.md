@@ -23,3 +23,8 @@ babel-plugin-transform-regenerator babel-preset-es2015 babel-preset-react --save
 npm i -D webpack-cli
 
 npm list webpack-cli
+
+#TESTS
+
+https://www.baeldung.com/spring-boot-testing
+https://www.baeldung.com/spring-security-integration-tests
