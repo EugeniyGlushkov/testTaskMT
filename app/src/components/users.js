@@ -15,24 +15,24 @@ class Users extends React.Component {
     }
 
     componentDidMount() {
-        fetch('http://10.2.226.115:9999/api/users')
+        fetch('/api/users')
             .then(response => {
                 return response.json();
             }).then(result => {
             console.log(result);
             this.setState({
-                websites:result
+                users:result
             });
         });
     }
 
     deleteUser(id) {
         if(window.confirm("Are you sure want to delete?")) {
-            fetch('http://10.2.226.115:9999/api/user/delete/' + id)
+            fetch('/api/user/delete/' + id)
                 .then(response => {
                     if(response.status === 200) {
                         alert("User deleted successfully");
-                        fetch('http://10.2.226.115:9999/api/users')
+                        fetch('/api/users')
                             .then(response => {
                                 return response.json();
                             }).then(result => {
