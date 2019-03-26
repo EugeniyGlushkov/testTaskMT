@@ -4,13 +4,13 @@ import { Link, withRouter } from 'react-router-dom';
 class Update extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {id: '', name: '', email:'', password:'', birthDate:''};
+        this.state = {id: '', name: '', email:'', birthDate:''};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
-        fetch('/api/user/get/' + this.props.match.params.id)
+        fetch('http://10.2.226.115:9999/api/user/get/' + this.props.match.params.id)
             .then(response => {
                 return response.json();
             }).then(result => {
@@ -19,7 +19,6 @@ class Update extends React.Component {
                 id:result.id,
                 name:result.name,
                 email:result.email,
-                password:'',
                 birthDate:result.birthDate
             });
         });
@@ -31,13 +30,12 @@ class Update extends React.Component {
     }
     handleSubmit(event) {
         event.preventDefault();
-        fetch('/api/user/update', {
+        fetch('http://10.2.226.115:9999/api/user/update', {
             method: 'POST',
             body: JSON.stringify({
                 id:this.state.id,
                 name: this.state.name,
                 email: this.state.email,
-                password: this.state.password,
                 birthDate: this.state.birthDate
             }),
             headers: {
@@ -53,7 +51,7 @@ class Update extends React.Component {
     render() {
         return (
             <div id="container">
-                <Link to="/">Users</Link>
+                <Link to="/api/">Users</Link>
                 <p/>
                 <form onSubmit={this.handleSubmit}>
                     <input type="hidden" name="id" value={this.state.id}/>
@@ -64,10 +62,6 @@ class Update extends React.Component {
                     <p>
                         <label>Email:</label>
                         <input type="text" name="email" value={this.state.email} onChange={this.handleChange} placeholder="Email" />
-                    </p>
-                    <p>
-                        <label>Password:</label>
-                        <input type="text" name="password" value={this.state.password} onChange={this.handleChange} placeholder="Password" />
                     </p>
                     <p>
                         <label>BirthDate:</label>
