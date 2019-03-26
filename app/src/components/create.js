@@ -29,6 +29,8 @@ class Create extends React.Component {
         }).then(response => {
             if(response.status === 200) {
                 alert("New user saved successfully");
+            } else {
+                alert("Something wrong");
             }
         });
     }

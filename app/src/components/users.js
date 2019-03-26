@@ -9,6 +9,7 @@ class Users extends React.Component {
             { key: 'id', label: 'Id'},
             { key: 'name', label: 'Name'},
             { key: 'email', label: 'Email' },
+            { key: 'password', label: 'Password' },
             { key: 'birthDate', label: 'BirthDate' }
         ];
         this.deleteUser = this.deleteUser.bind(this);

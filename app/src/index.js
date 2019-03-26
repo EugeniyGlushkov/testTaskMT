@@ -9,9 +9,9 @@ import * as serviceWorker from './serviceWorker';
 ReactDOM.render(
     <Router>
         <div>
-            <Route exact path='/' component={Users} />
-            <Route path='/create' component={Create} />
-            <Route path='/update/:id' component={Update} />
+            <Route exact path='/api/users' component={Users} />
+            <Route path='/api/user/add' component={Create} />
+            <Route path='/api/user/update/:id' component={Update} />
         </div>
     </Router>,
     document.getElementById('root'));
