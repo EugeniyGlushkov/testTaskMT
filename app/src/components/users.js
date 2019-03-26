@@ -44,6 +44,7 @@ class Users extends React.Component {
                     }
                 });
         }
+        window.location.reload();
     }
 
     render() {
@@ -69,11 +70,12 @@ class Users extends React.Component {
                         this.state.users.map(function(item, key) {
                             return (
                                 <tr key = {key}>
+                                    <td>{item.id}</td>
                                     <td>{item.name}</td>
                                     <td>{item.email}</td>
                                     <td>{item.birthDate}</td>
                                     <td>
-                                        <Link to={`/api/update/${item.id}`}>Edit</Link>
+                                        <Link to={`/update/${item.id}`}>Edit   </Link>
 
                                         <a href="javascript:void(0);" onClick={this.deleteUser.bind(this, item.id)}>Delete</a>
                                     </td>

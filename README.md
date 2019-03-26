@@ -7,6 +7,10 @@ https://www.jeejava.com/spring-boot-reactjs-crud-example/
 
 https://o7planning.org/ru/11663/spring-boot-spring-jdbc-and-spring-transaction-tutorial
 
+npm install -g npm <to update npm to the latest version>
+
+npm install -g create-react-app
+
 create-react-app <app name>
 
 npm install --save yarn-install

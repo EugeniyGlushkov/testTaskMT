@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 class Create extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {name: '', email:'', birthDate:''};
+        this.state = {name:'', email:'', password:'', birthDate:''};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -15,11 +15,12 @@ class Create extends React.Component {
     }
     handleSubmit(event) {
         event.preventDefault();
-        fetch('http://10.2.226.115:9999/api/user/add', {
+        fetch('/api/user/add', {
             method: 'POST',
             body: JSON.stringify({
                 name: this.state.name,
                 email: this.state.email,
+                password: this.state.password,
                 birthDate: this.state.birthDate
             }),
             headers: {
@@ -47,6 +48,10 @@ class Create extends React.Component {
                     <p>
                         <label>BirthDate:</label>
                         <input type="text" name="birthDate" value={this.state.birthDate} onChange={this.handleChange} placeholder="BirthDate" />
+                    </p>
+                    <p>
+                        <label>Password:</label>
+                        <input type="text" name="password" value={this.state.password} onChange={this.handleChange} placeholder="Password" />
                     </p>
                     <p>
                         <input type="submit" value="Submit" />

@@ -1,5 +1,6 @@
 package service;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -89,7 +90,7 @@ public class UserServiceTests {
     public void create() {
         User expected = new User(NEW_USER);
         User actual = service.create(expected);
-
+        System.out.println(actual.getPassword());
         expected.setId(actual.getId());
 
         assertMatch(service.getAll(), USER_3, USER_2, USER_4, expected, USER_1);
@@ -167,10 +168,9 @@ public class UserServiceTests {
     @Test
     public void delete() {
         int deleteId = USER_4.getId();
-        System.out.println(service.getAll());
 
         service.delete(deleteId);
-        System.out.println(service.getAll());
+
         assertMatch(service.getAll(), USER_3, USER_2, USER_1);
     }
 

@@ -10,7 +10,7 @@ class Update extends React.Component {
     }
 
     componentDidMount() {
-        fetch('http://10.2.226.115:9999/api/user/get/' + this.props.match.params.id)
+        fetch('/api/user/get/' + this.props.match.params.id)
             .then(response => {
                 return response.json();
             }).then(result => {
@@ -30,7 +30,7 @@ class Update extends React.Component {
     }
     handleSubmit(event) {
         event.preventDefault();
-        fetch('http://10.2.226.115:9999/api/user/update', {
+        fetch('/api/user/update', {
             method: 'POST',
             body: JSON.stringify({
                 id:this.state.id,

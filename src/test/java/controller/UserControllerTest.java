@@ -16,6 +16,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import ru.alvisid.testtaskmt.Application;
@@ -29,6 +31,7 @@ import static org.hamcrest.Matchers.*;
 import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.NONE;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static testdata.UserTestData.*;
 
@@ -72,7 +75,6 @@ public class UserControllerTest {
                 .build();
 
         UserController controller = context.getBean(UserController.class);
-        System.out.println(controller.getClass().getName());
     }
 
     @Autowired
@@ -85,8 +87,10 @@ public class UserControllerTest {
 
         mvc.perform(get("/api/user/get/1"))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(expected.getId())))
                 .andExpect(jsonPath("$.name", is(expected.getName())))
                 .andExpect(jsonPath("$.email", is(expected.getEmail())))
+                .andExpect(jsonPath("$.password", is("")))
                 .andExpect(jsonPath("$.birthDate[0]", equalTo(expected.getBirthDate().getYear())))
                 .andExpect(jsonPath("$.birthDate[1]", equalTo(expected.getBirthDate().getMonthValue())))
                 .andExpect(jsonPath("$.birthDate[2]", equalTo(expected.getBirthDate().getDayOfMonth())));
@@ -95,21 +99,38 @@ public class UserControllerTest {
     @Test
     @WithMockUser(username = "ann@list.ru", password = "ann")
     public void getUsers() throws Exception {
-        List <User> expectedUsers = Arrays.asList(USER_3, USER_2, USER_4, USER_1);
-
         ResultActions resultActions = mvc.perform(get("/api/users"));
 
         resultActions.andExpect(status().isOk())
-        .andExpect(jsonPath("$", hasSize(4)));
+                .andExpect(jsonPath("$", hasSize(4)));
 
-        userInArrayExpect(resultActions, 0, USER_3);
+        userInArrayExpect(resultActions, USER_3, USER_2, USER_4, USER_1);
     }
 
-    private void userInArrayExpect(ResultActions resultActions, int userNum, User user) throws Exception {
-        resultActions.andExpect(jsonPath(String.format("$[%d].name", userNum), is(user.getName())))
-                .andExpect(jsonPath(String.format("$[%d].email", userNum), is(user.getEmail())))
-                .andExpect(jsonPath(String.format("$[%d].birthDate[0]", userNum), equalTo(user.getBirthDate().getYear())))
-                .andExpect(jsonPath(String.format("$[%d].birthDate[1]", userNum), equalTo(user.getBirthDate().getMonthValue())))
-                .andExpect(jsonPath(String.format("$[%d].birthDate[2]", userNum), equalTo(user.getBirthDate().getDayOfMonth())));
+    @Test
+    @WithMockUser(username = "ann@list.ru", password = "ann")
+    public void addUser() throws Exception {
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/api/user/add")
+                .param("name", "Curt")
+                .param("email", "curt@ya.ru")
+                .param("password", "curt")
+                .param("birthDate", "1999-03-20");
+        ResultActions resultActions = mvc.perform(builder);
+        resultActions
+                .andExpect(status().isOk());
+    }
+
+    private void userInArrayExpect(ResultActions resultActions, User... users) throws Exception {
+        for (int i = 0, end = users.length; i < end; i++) {
+            resultActions.andExpect(jsonPath(String.format("$[%d].name", i), is(users[i].getName())))
+                    .andExpect(jsonPath(String.format("$[%d].id", i), is(users[i].getId())))
+                    .andExpect(jsonPath(String.format("$[%d].email", i), is(users[i].getEmail())))
+                    .andExpect(jsonPath(String.format("$[%d].password", i), is("")))
+                    .andExpect(jsonPath(String.format("$[%d].birthDate[0]", i), equalTo(users[i].getBirthDate().getYear())))
+                    .andExpect(jsonPath(String.format("$[%d].birthDate[1]", i), equalTo(users[i].getBirthDate().getMonthValue())))
+                    .andExpect(jsonPath(String.format("$[%d].birthDate[2]", i), equalTo(users[i].getBirthDate().getDayOfMonth())));
+        }
+
+
     }
 }
