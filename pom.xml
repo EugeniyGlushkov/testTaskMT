@@ -130,6 +130,9 @@
                 <version>2.0.6</version>
                 <configuration>
                     <appName>testtaskmt</appName>
+                    <processTypes>
+                        <web>java $JAVA_OPTS -cp target/classes:target/dependency/* Main</web>
+                    </processTypes>
                 </configuration>
             </plugin>
 
