@@ -11,7 +11,7 @@ ReactDOM.render(
         <div>
             <Route exact path='/' component={Users} />
             <Route path='/create' component={Create} />
-            <Route path='/update/:id' component={Update} />
+            <Route path='/api/user/update/:id' component={Update} />
         </div>
     </Router>,
     document.getElementById('root'));

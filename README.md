@@ -15,6 +15,8 @@ create-react-app <app name>
 
 npm install --save yarn-install
 
+npm install --global yarn
+
 npm install npm@latest -g <<обновление менеджера пакетов до актуальной версии>>
 
 npm install --save react-router-dom
