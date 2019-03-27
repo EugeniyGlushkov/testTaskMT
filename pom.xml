@@ -118,6 +118,13 @@
             <artifactId>jackson-mapper-asl</artifactId>
             <version>1.9.13</version>
         </dependency>
+
+        <!-- WebRunner -->
+        <dependency>
+            <groupId>com.github.jsimone</groupId>
+            <artifactId>webapp-runner</artifactId>
+            <version>9.0.13.0</version>
+        </dependency>
     </dependencies>
 
     <build>
