@@ -46,7 +46,7 @@ public class UserController {
     @PostMapping("/user/update")
     public ResponseEntity<Void> updateUser(@RequestBody UserTo userTo) throws Exception {
         service.update(UserUtul.toUser(userTo));
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     @GetMapping("/user/delete/{id}")
