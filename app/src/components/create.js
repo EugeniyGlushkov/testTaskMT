@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 class Create extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {name:'', email:'', password:'', birthDate:''};
+        this.state = {name:'', email:'', pas:'', birthDate:''};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -20,7 +20,7 @@ class Create extends React.Component {
             body: JSON.stringify({
                 name: this.state.name,
                 email: this.state.email,
-                password: this.state.password,
+                pas: this.state.pas,
                 birthDate: this.state.birthDate
             }),
             headers: {
@@ -51,7 +51,7 @@ class Create extends React.Component {
                     </p>
                     <p>
                         <label>Password:</label>
-                        <input type="text" name="password" value={this.state.password} onChange={this.handleChange} placeholder="Password" />
+                        <input type="text" name="pas" value={this.state.pas} onChange={this.handleChange} placeholder="Password" />
                     </p>
                     <p>
                         <input type="submit" value="Submit" />

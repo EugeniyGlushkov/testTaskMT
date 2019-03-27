@@ -16,10 +16,7 @@ public class UserUtul {
 
     public static User toUser(UserTo userTo) {
 
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        System.out.println(userTo);
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        String password = userTo.getPassword();
+        String password = userTo.getPas();
 
         if (StringUtils.isBlank(password) || password.length() < 3 || password.length() > 100) {
             throw new IllegalArgumentException("Password is wrong, password must be not blank, lower 100 and more 3 char.");
@@ -28,7 +25,7 @@ public class UserUtul {
         return new User(userTo.getId()
                 , userTo.getName()
                 , userTo.getEmail()
-                , encoder.encode(userTo.getPassword())
+                , encoder.encode(userTo.getPas())
                 , userTo.getBirthDate());
     }
 

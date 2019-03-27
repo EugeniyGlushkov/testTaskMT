@@ -4,7 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 class Update extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {id: '', name: '', email:'', password:'', birthDate:''};
+        this.state = {id: '', name: '', email:'', pas:'', birthDate:''};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -19,7 +19,7 @@ class Update extends React.Component {
                 id:result.id,
                 name:result.name,
                 email:result.email,
-                password:result.password,
+                pas:result.pas,
                 birthDate:result.birthDate
             });
         });
@@ -37,7 +37,7 @@ class Update extends React.Component {
                 id:this.state.id,
                 name: this.state.name,
                 email: this.state.email,
-                password: this.state.password,
+                pas: this.state.pas,
                 birthDate: this.state.birthDate
             }),
             headers: {
@@ -67,7 +67,7 @@ class Update extends React.Component {
                     </p>
                     <p>
                         <label>Password:</label>
-                        <input type="text" name="password" value={this.state.password} onChange={this.handleChange} placeholder="Password" />
+                        <input type="text" name="pas" value={this.state.pas} onChange={this.handleChange} placeholder="Password" />
                     </p>
                     <p>
                         <label>BirthDate:</label>

@@ -7,17 +7,17 @@ public class UserTo {
     private Integer id;
     private String name;
     private String email;
-    private String password;
+    private String pas;
     private LocalDate birthDate;
 
     public UserTo() {
     }
 
-    public UserTo(Integer id, String name, String email, String password, LocalDate birthDate) {
+    public UserTo(Integer id, String name, String email, String pas, LocalDate birthDate) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.password = password;
+        this.pas = pas;
         this.birthDate = birthDate;
     }
 
@@ -45,12 +45,12 @@ public class UserTo {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPas() {
+        return pas;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPas(String pas) {
+        this.pas = pas;
     }
 
     public LocalDate getBirthDate() {
@@ -69,7 +69,7 @@ public class UserTo {
         return Objects.equals(id, userTo.id) &&
                 Objects.equals(name, userTo.name) &&
                 Objects.equals(email, userTo.email) &&
-                Objects.equals(password, userTo.password) &&
+                Objects.equals(pas, userTo.pas) &&
                 Objects.equals(birthDate, userTo.birthDate);
     }
 
@@ -79,7 +79,7 @@ public class UserTo {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
+                ", pas='" + pas + '\'' +
                 ", birthDate=" + birthDate +
                 '}';
     }
