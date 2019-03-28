@@ -45,7 +45,6 @@ public class UserServiceImpl implements UserService {
      * @param user the user to create.
      * @return the created user.
      */
-    @CacheEvict(value = "users", allEntries = true)
     @Override
     public User create(User user) {
         Assert.notNull(user, User.class.getSimpleName() + " must not be null");
@@ -63,7 +62,6 @@ public class UserServiceImpl implements UserService {
      * @param user the user to update.
      * @throws NotFoundException if there aren't updated user in the data base.
      */
-    @CacheEvict(value = "users", allEntries = true)
     @Override
     public void update(User user) throws NotFoundException {
         Assert.notNull(user, User.class.getSimpleName() + " must not be null");
@@ -76,7 +74,6 @@ public class UserServiceImpl implements UserService {
      * @param id the specified id of a user.
      * @throws NotFoundException if the user with the specified id isn't found.
      */
-    @CacheEvict(value = "users", allEntries = true)
     @Override
     public void delete(int id) throws NotFoundException {
         checkNotFoundWithId(repository.delete(id), id);
@@ -99,7 +96,6 @@ public class UserServiceImpl implements UserService {
      *
      * @return the list with all users.
      */
-    @Cacheable("users")
     @Override
     public List <User> getAll() {
         return repository.getAll();

@@ -15,12 +15,14 @@ import ru.alvisid.testtaskmt.model.User;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private SpringDataJpaUserDetailsService userDetailsService;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .userDetailsService(this.userDetailsService)
                 .passwordEncoder(User.PASSWORD_ENCODER);
     }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
