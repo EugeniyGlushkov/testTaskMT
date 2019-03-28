@@ -38,19 +38,12 @@ import static testdata.UserTestData.*;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-//@WebMvcTest(value = UserController.class, includeFilters = @ComponentScan.Filter(classes= EnableWebSecurity.class), secure = false)
 @SpringBootTest(classes = Application.class)
-//@WebAppConfiguration
-//@ContextConfiguration(classes={Application.class, SecurityConfiguration.class})
-//@SpringBootConfiguration
 @BootstrapWith(value = SpringBootTestContextBootstrapper.class)
-
 @ContextConfiguration(locations = {
         "classpath:spring/spring-app.xml"
 })
-//@SpringBootApplication(scanBasePackages = "ru.alvisid.testtaskmt")
 @AutoConfigureTestDatabase(replace = NONE)
-//@AutoConfigureMockMvc(secure=false)
 @EntityScan("ru.alvisid.testtaskmt.model")
 
 public class UserControllerTest {
@@ -60,10 +53,6 @@ public class UserControllerTest {
 
     @Autowired
     private TestEntityManager entityManager;
-
-    /*@Autowired
-    private MockMvc mvc;*/
-
 
     private MockMvc mvc;
 
@@ -90,7 +79,7 @@ public class UserControllerTest {
                 .andExpect(jsonPath("$.id", is(expected.getId())))
                 .andExpect(jsonPath("$.name", is(expected.getName())))
                 .andExpect(jsonPath("$.email", is(expected.getEmail())))
-                .andExpect(jsonPath("$.password", is("")))
+                .andExpect(jsonPath("$.pas", is("")))
                 .andExpect(jsonPath("$.birthDate[0]", equalTo(expected.getBirthDate().getYear())))
                 .andExpect(jsonPath("$.birthDate[1]", equalTo(expected.getBirthDate().getMonthValue())))
                 .andExpect(jsonPath("$.birthDate[2]", equalTo(expected.getBirthDate().getDayOfMonth())));
@@ -125,12 +114,10 @@ public class UserControllerTest {
             resultActions.andExpect(jsonPath(String.format("$[%d].name", i), is(users[i].getName())))
                     .andExpect(jsonPath(String.format("$[%d].id", i), is(users[i].getId())))
                     .andExpect(jsonPath(String.format("$[%d].email", i), is(users[i].getEmail())))
-                    .andExpect(jsonPath(String.format("$[%d].password", i), is("")))
+                    .andExpect(jsonPath(String.format("$[%d].pas", i), is("")))
                     .andExpect(jsonPath(String.format("$[%d].birthDate[0]", i), equalTo(users[i].getBirthDate().getYear())))
                     .andExpect(jsonPath(String.format("$[%d].birthDate[1]", i), equalTo(users[i].getBirthDate().getMonthValue())))
                     .andExpect(jsonPath(String.format("$[%d].birthDate[2]", i), equalTo(users[i].getBirthDate().getDayOfMonth())));
         }
-
-
     }
 }
