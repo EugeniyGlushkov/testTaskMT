@@ -9,15 +9,21 @@ https://o7planning.org/ru/11663/spring-boot-spring-jdbc-and-spring-transaction-t
 
 npm install -g npm <to update npm to the latest version>
 
-npm install -g create-react-app
+npm install create-react-app
+
+<<npm install -g create-react-app>>
 
 create-react-app <app name>
 
-npm install --save yarn-install
+npm install yarn –global
+
+<<npm install --save yarn-install>>
 
 npm install npm@latest -g <<обновление менеджера пакетов до актуальной версии>>
 
-npm install --save react-router-dom
+yarn add react-router-dom
+
+<<npm install --save react-router-dom>>
 
 npm install react requirejs react-dom rest --save
 
@@ -32,3 +38,14 @@ npm list webpack-cli
 
 https://www.baeldung.com/spring-boot-testing
 https://www.baeldung.com/spring-security-integration-tests
+
+#Heroku
+
+heroku logs --app <app>
+
+https://github.com/Abdallah-Abdelazim/yt-heroku-demo
+heroku buildpacks:set heroku/java
+
+heroku.postgres:
+ssl:true
+sslfactory:org.postgresql.ssl.NonValidatingFactory
