@@ -6,6 +6,7 @@ import ru.alvisid.testtaskmt.TO.UserTo;
 import ru.alvisid.testtaskmt.model.User;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class UserUtul {
@@ -15,17 +16,20 @@ public class UserUtul {
     }
 
     public static User toUser(UserTo userTo) {
-
         String password = userTo.getPas();
 
-        if (StringUtils.isBlank(password) || password.length() < 3 || password.length() > 100) {
-            throw new IllegalArgumentException("Password is wrong, password must be not blank, lower 100 and more 3 char.");
+        if (StringUtils.isNotBlank(password) && password.length() >= 3 && password.length() <= 100) {
+            password = encoder.encode(password);
+        } else if (StringUtils.isEmpty(password) && !Objects.isNull(userTo.getId())) {
+            password = null;
+        } else {
+            throw new RuntimeException("Password must has not only whitespace and be in interval from 3 to 100 symbols.");
         }
 
         return new User(userTo.getId()
                 , userTo.getName()
                 , userTo.getEmail()
-                , encoder.encode(userTo.getPas())
+                , password
                 , userTo.getBirthDate());
     }
 

@@ -16,6 +16,7 @@ CREATE TABLE users
   email       VARCHAR NOT NULL,
   password    VARCHAR NOT NULL,
   birth_date  DATE    NOT NULL
+CHECK birth_date = NULL DO
 );
 CREATE UNIQUE INDEX users_unique_email_idx
   ON users (email);

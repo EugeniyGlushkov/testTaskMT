@@ -11,6 +11,7 @@ import ru.alvisid.testtaskmt.service.UserService;
 import ru.alvisid.testtaskmt.util.exceptions.NotFoundException;
 
 import java.util.List;
+import java.util.Objects;
 
 import static ru.alvisid.testtaskmt.util.ValidationUtil.*;
 
@@ -65,6 +66,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void update(User user) throws NotFoundException {
         Assert.notNull(user, User.class.getSimpleName() + " must not be null");
+
+        if (Objects.isNull(user.getPassword())) {
+            user.setPassword(get(user.getId()).getPassword());
+        }
+
         checkNotFoundWithId(repository.save(user), user.getId());
     }
 

@@ -16,8 +16,6 @@ import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import static org.springframework.security.config.Elements.PASSWORD_ENCODER;
-
 /**
  * A user entity.
  *
@@ -67,8 +65,6 @@ public class User {
      */
     @Column(name = "password", nullable = false)
     @NotBlank
-    @Size(min = 3, max = 100)
-    //@JsonIgnore
     private String password;
 
     /**

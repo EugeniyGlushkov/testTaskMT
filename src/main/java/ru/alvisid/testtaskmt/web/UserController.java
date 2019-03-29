@@ -54,13 +54,4 @@ public class UserController {
         service.delete(id);
         return new ResponseEntity<UserTo>(HttpStatus.OK);
     }
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("*");
-            }
-        };
-    }
 }
